@@ -194,6 +194,11 @@ def receive_blob():
         package_details = str(request.form['details'])
         package_photo_counter = int(request.form['photo_counter'])
 
+        package_photo_list = []
+        package_itinerary = []
+
+        itinerary_package_photo_counter = int(request.form['itinerary_counter'])
+
         photo = request.form.getlist('photos[]')
         #app.logger.debug(request.files['photos']) 
 
@@ -208,9 +213,25 @@ def receive_blob():
 
                     create_image_from_datauri(data_uri, timestamp)
                     create_image_thumbnail(timestamp)
+                    package_photo_list.append('{}'.format(timestamp))
 
-                    print(key)
+            # Itinerary section
+            itinerary_range_limit = itinerary_package_photo_counter + 1
+            for x in range(1, itinerary_range_limit):
+                if key == 'itinerary_photo{}'.format(x):
+                    itinerary_data_uri = dict['itinerary_photo{}'.format(x)]
+                    itinerary_title = str(dict['itinerary_title{}'.format(x)])
+                    itinerary_details = str(dict['itinerary_details{}'.format(x)])
 
+                    timestamp = time.time()
+
+                    create_image_from_datauri(itinerary_data_uri, timestamp)
+                    create_image_thumbnail(timestamp)
+                    package_itinerary.append([itinerary_title, itinerary_details, '{}'.format(timestamp)])
+
+        package = Package(name=package_name, duration=package_duration, from_date="", price=package_price, destination_id=package_destination, details=package_details, photo=package_photo_list, itinerary=package_itinerary, active="True")
+        db_session.add(package)
+        db_session.commit()
 
         return 'blob received'
     print('blob not received')
@@ -224,4 +245,4 @@ def popit():
 
 if __name__=='__main__':
     app.debug = True
-    app.run(port=3002)
+    app.run()
