@@ -9,6 +9,7 @@
     <div class="container">
       <h1>PACKAGES</h1>
       <br>
+      <div id="wait" style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;"><img src='https://www.w3schools.com/jquery/demo_wait.gif' width="64" height="64" /><br>Loading..</div>
       <form action="http://127.0.0.1:5000/{{post_package}}" method="post" id="myForm" onsubmit="return false;" enctype='multipart/form-data' >
         <input type="text" placeholder="Package Name" name="package_name" value="{{
             request.form.package_name }}"><br />
@@ -19,13 +20,19 @@
         <input type="text" placeholder="Destination" name="destination" value="{{
             request.form.destination }}"><br />
         <textarea placeholder="Details" name="details">{{ request.form.details }}</textarea><br />
-        <input type="file" name="photo_1" value="{{
-                request.form.photo_1 }}"><br />        
+       
                 <div id="photo_holder">
                     <br />
                     <input type="text" name="photo_counter" id="photo_counter" value="0" />
                     <br />
-                    <div onclick="addTagsFunction(increment())">Add Photo</div>
+                    <div onclick="addImageTagsFunction(increment())">Add Photo</div>
+                </div>
+
+                <div id="itinerary_holder">
+                    <br />
+                    <input type="text" name="itinerary_counter" id="itinerary_counter" value="0" />
+                    <br />
+                    <div onclick="addItineraryTagsFunction(itinerary_increment())">Add Itinerary</div>
                 </div>
 
         <input class="btn btn-default" type="submit" id="button" value="Post">
@@ -47,10 +54,19 @@ function increment(){
     return i
 }
 
-function addTagsFunction(id){
+let itinerary_i = 0; /* Set Global Variable i */
+function itinerary_increment(){
+    itinerary_i += 1; /* Function for automatic increment of field's "Name" attribute. */
+
+    document.getElementById('itinerary_counter').value = itinerary_i;
+    return itinerary_i
+}
+
+function addImageTagsFunction(id){
     let file_tag = document.createElement("INPUT");
     file_tag.setAttribute("type", "file");
     file_tag.setAttribute("name", "file");
+    file_tag.setAttribute("accept", "image/*");
     file_tag.setAttribute("id", "file" + id);
     
     let textarea_tag = document.createElement("TEXTAREA");
@@ -69,6 +85,45 @@ function addTagsFunction(id){
     document.getElementById("photo_holder").appendChild(file_tag);
 
     addClickHandler('file' + id, 'preview_' + id, 'photo_data_uri_' + id)
+}
+
+
+function addItineraryTagsFunction(id){
+    let file_tag = document.createElement("INPUT");
+    file_tag.setAttribute("type", "file");
+    file_tag.setAttribute("name", "itinerary_file");
+    file_tag.setAttribute("accept", "image/*");
+    file_tag.setAttribute("id", "itinerary_file_" + id);
+    
+    let textarea_tag = document.createElement("TEXTAREA");
+    textarea_tag.setAttribute("name", "itinerary_photo_data_uri");
+    textarea_tag.setAttribute("id", "itinerary_photo_data_uri_" + id);
+
+    let image_tag = document.createElement("IMG");
+    image_tag.setAttribute("src", "/images/uploadButton.png");
+    image_tag.setAttribute("name", "itinerary_preview");
+    image_tag.setAttribute("id", "itinerary_preview_" + id);
+    image_tag.setAttribute("width", "100px");
+
+    let itinerary_title = document.createElement("INPUT");
+    itinerary_title.setAttribute("type", "text");
+    itinerary_title.setAttribute("name", "itinerary_title_" + id);
+    itinerary_title.setAttribute("id", "itinerary_title_" + id);
+    itinerary_title.setAttribute("placeholder", "Itinerary Title");
+
+    let itinerary_textarea_tag_details = document.createElement("TEXTAREA");
+    itinerary_textarea_tag_details.setAttribute("name", "itinerary_details");
+    itinerary_textarea_tag_details.setAttribute("id", "itinerary_details_" + id);
+    itinerary_textarea_tag_details.setAttribute("placeholder", "Itinerary Details");
+
+    
+    document.getElementById("itinerary_holder").appendChild(textarea_tag);
+    document.getElementById("itinerary_holder").appendChild(image_tag);
+    document.getElementById("itinerary_holder").appendChild(file_tag);
+    document.getElementById("itinerary_holder").appendChild(itinerary_title);
+    document.getElementById("itinerary_holder").appendChild(itinerary_textarea_tag_details);
+
+    addClickHandler('itinerary_file_' + id, 'itinerary_preview_' + id, 'itinerary_photo_data_uri_' + id)
 }
 
 
@@ -92,27 +147,43 @@ function addClickHandler(elem, photo_preview, final_textarea){
 }
 
 $("#button").click(function () { 
-    //alert(typeof(dataURLtoBlob(document.getElementById('photo_data_uri_1').value)))
-
     // Create a FormData and append the file with "image" as parameter name
     let form = document.getElementById('myForm');
     let formDataToUpload = new FormData(form);
 
-    let photo_blob = new Blob()
+    //Add package images
+    let photo_data_uri = ''
     let counter = document.getElementById('photo_counter').value
-
     for(let i = 1; i <= counter; i++){
-        //photo_blob = dataURLtoBlob(document.getElementById('photo_data_uri_' + i).value)
-        photo_blob = document.getElementById('photo_data_uri_' + i).value
-        let blob_to_file = new File([photo_blob], "name");
-        //photo_array.push(blob_to_file)
-        
-        formDataToUpload.append("photo"+i, photo_blob);
+        photo_data_uri = document.getElementById('photo_data_uri_' + i).value
+        formDataToUpload.append("photo"+i, photo_data_uri);
+    }
+
+    //Add package itinerary
+    let itinerary_photo_data_uri = ''
+    let itinerary_counter = document.getElementById('itinerary_counter').value
+    for(let i = 1; i <= itinerary_counter; i++){
+        let itinerary_title = document.getElementById('itinerary_title_' + i).value
+        let itinerary_photo_data_uri = document.getElementById('itinerary_photo_data_uri_' + i).value
+        let itinerary_details = document.getElementById('itinerary_details_' + i).value
+
+        formDataToUpload.append("itinerary_photo"+i,itinerary_photo_data_uri)
+        formDataToUpload.append('itinerary_title' + i, itinerary_title)
+        formDataToUpload.append('itinerary_details' + i, itinerary_details)
     }
 
     for (let value of formDataToUpload) {
-    console.log(value); 
+        console.log(value); 
     }
+
+    $(document).ajaxStart(function(){
+        $("#wait").css("display", "block");
+    });
+
+    $(document).ajaxComplete(function(){
+        $("#wait").css("display", "none");
+        //alert('Package added successfully')
+    });
 
     $.ajax({
         url:"/receive_blob",
@@ -132,27 +203,9 @@ $("#button").click(function () {
         console.log("Request finished.");
     }
 });
+
+form.innerHTML='<input type="text" placeholder="Package Name" name="package_name" value="{{request.form.package_name }}"><br /><input type="text" placeholder="Duration" name="duration" value="{{request.form.duration }}"><br /><input type="text" placeholder="Price" name="price" value="{{request.form.price }}"><br /><input type="text" placeholder="Destination" name="destination" value="{{request.form.destination }}"><br /><textarea placeholder="Details" name="details">{{ request.form.details }}</textarea><br /><div id="photo_holder"><br /><input type="text" name="photo_counter" id="photo_counter" value="0" /><br /><div onclick="addImageTagsFunction(increment())">Add Photo</div></div><div id="itinerary_holder"><br /><input type="text" name="itinerary_counter" id="itinerary_counter" value="0" /><br /><div onclick="addItineraryTagsFunction(itinerary_increment())">Add Itinerary</div></div><input class="btn btn-default" type="submit" id="button" value="Post">'
 });
-
-function dataURLtoBlob(dataurl) {
-    let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], {type:mime});
-}
-
-function addImagesWithSameFormNameToArray(form_name){
-    let newArray = new Array();
-    $("textarea.photo_data_uri").each(function(){
-        //alert($(this).val())
-        newArray.push(dataURLtoBlob($(this).val()));
-    });
-
-    return newArray
-}
-
     </script>
 
       {% if error %}
