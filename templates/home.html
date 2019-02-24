@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Article-List.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Carousel_Image_Slider.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Carousel_Image_Slider1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Carousel-Hero.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Footer-Clean.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Slider_Carousel_webalgustocom.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Slider_Carousel_webalgustocom1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Slider_Carousel_webalgustocom2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/modal.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md fixed-top" id="navbar">
+        <div class="container"><a class="navbar-brand text-white" href="#" style="font-size:46px;">Astro Travels</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav mx-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white active" href="#" style="color:rgba(200,200,200,0.9);"><i class="fa fa-"></i>&nbsp;Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="#" style="color:rgba(200,200,200,0.9);"><i class="fa fa-"></i>&nbsp;Holiday</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="#" style="color:rgba(200,200,200,0.9);"><i class="fa fa-"></i>&nbsp;Destination</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="#" style="color:rgba(200,200,200,0.9);"><i class="fa fa-"></i>&nbsp;About Us</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <div class="carousel slide" data-ride="carousel" id="carousel-1">
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="jumbotron hero-nature carousel-hero">
+                    <h1 class="hero-title">Hero Nature</h1>
+                    <p class="hero-subtitle">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                    <p><a class="btn btn-primary btn-lg hero-button" role="button" href="#" id="hero-button">Learn more</a></p>
+                </div>
+            </div>
+        </div>
+        <ol
+            class="carousel-indicators">
+            <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+            </ol>
+    </div>
+    <div class="description" id="description">
+        <div class="container">
+            <h2 class="text-center" style="color:rgb(49,52,55);font-size:36px;"><i class="fa fa-info-circle" style="color:rgb(18,37,20);"></i>&nbsp;<strong>Description</strong></h2>
+            <p class="text-center text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi risus, condimentum et orci quis, gravida maximus mauris. Praesent varius dolor eget ligula gravida mollis. Praesent ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi risus, condimentum et orci quis, gravida maximus mauris. Praesent varius dolor eget ligula gravida mollis. Praesent ac.</p>
+        </div>
+    </div>
+    <div class="article-list" style="background-color:rgba(231,242,232,0.71);">
+            <div class="intro">
+                <h2 class="text-center"><i class="fa fa-shopping-basket" style="color:rgb(18,37,20);"></i>&nbsp;Holiday Packages</h2>
+                <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae. </p>
+            </div>
+            <style>
+                .articles{
+                    overflow-x: scroll;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    -webkit-overflow-scrolling: touch;
+                }
+                
+                .articles {
+                  &::-webkit-scrollbar {
+                    display: none;
+                  }
+                }
+                
+                .item{
+                    display: inline-block;
+                    white-space: pre-line;
+                }
+                
+                .articles-flexbox {
+                  display: flex;
+                  flex-wrap: nowrap;
+                  overflow-x: auto;
+                
+                  .item {
+                    flex: 0 0 auto;
+                  }
+                }
+</style>
+
+
+            <button class="leftArrow">Left Arrow</button>
+            <button class="rightArrow">Right Arrow</button>
+
+            <div class="articles">
+                <!-- <div class="col-xs-6 col-sm-4 col-md-3 item"><a href="#"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/desk.jpg') }}"></a>
+                    <h3 class="name">Adventure Tours</h3>
+                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right" style="color:rgb(55,126,63);"></i></a>
+                </div>  
+                <div class="col-xs-6 col-sm-4 col-md-3 item"><a href="#"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/building.jpg') }}"></a>
+                    <h3 class="name">Corporate Travels</h3>
+                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right" style="color:rgb(55,126,63);"></i></a>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 item"><a href="#"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/loft.jpg') }}"></a>
+                    <h3 class="name">Beach Holidays</h3>
+                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right" style="color:rgb(55,126,63);"></i></a>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 item"><a href="#"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/desk.jpg') }}"></a>
+                    <h3 class="name">Adventure Tours</h3>
+                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right" style="color:rgb(55,126,63);"></i></a>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 item"><a href="#"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/building.jpg') }}"></a>
+                    <h3 class="name">Adventure Tours</h3>
+                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right" style="color:rgb(55,126,63);"></i></a>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 item"><a href="#"><img class="img-fluid" src="{{ url_for('static', filename='assets/img/loft.jpg') }}"></a>
+                    <h3 class="name">Beach Holidays</h3>
+                    <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right" style="color:rgb(55,126,63);"></i></a>
+                </div> -->
+    </div>
+    </div>
+    <div class="footer-clean" style="background-color:rgb(55,126,63);color:rgb(255,255,255);">
+        <footer>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3>Tours &amp; Travels</h3>
+                        <ul>
+                            <li><a href="#">3 days gorilla trek</a></li>
+                            <li><a href="#">5 days Mountain Climbing</a></li>
+                            <li><a href="#">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Legacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3>Careers</h3>
+                        <ul>
+                            <li><a href="#">Job openings</a></li>
+                            <li><a href="#">Employee success</a></li>
+                            <li><a href="#">Benefits</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
+                        <p class="copyright">Peregreen Safaris © 2017</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <div id="openModal" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2 id='heading'>Modal Box</h2>
+                <p>This is a sample modal box that can be created using the powers of CSS3.</p>
+                <p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+            </div>
+        </div>
+
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/Slider_Carousel_webalgustocom.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            //let scroll_width = $(".item").width() + $(".item").css('padding-right') + $(".item").css('padding-left');
+            let scroll_width = $(".item").innerWidth() ;
+            $(".leftArrow").click(function () {
+                let leftPos = $('.articles').scrollLeft();
+                $(".articles").animate({
+                    scrollLeft: leftPos - scroll_width
+                }, 800);
+            });
+
+            $(".rightArrow").click(function () {
+                let leftPos = $('.articles').scrollLeft();
+                $(".articles").animate({
+                    scrollLeft: leftPos + scroll_width
+                }, 800);
+            });
+
+
+
+            //Picking the Package JSON data from database
+            //Function to send request to the server and get a response
+function SendRequest(request_method, data, url, async){
+    let the_data = '';
+
+    $.ajax({
+        type: request_method,
+        data: data,
+        contentType: 'application/json',
+        url: url,						
+        success: function(data) {
+            the_data = data
+        },
+        async: async
+    });
+
+    //return the_data[1].photo.photos[0].photo_name
+    return the_data;
+}
+
+let packages_received = SendRequest('GET', {}, '/get_packages', false)
+for(let x=0; x<packages_received.length; x++){
+    let package_photo = 'T_' + packages_received[x].photo.photos[0].photo_name + '.jpeg';
+    let package_name = packages_received[x].name
+    let package_details = packages_received[x].details
+    $('.articles').append('<div class="col-xs-6 col-sm-4 col-md-3 item"><a href="#"><img class="img-fluid" src="static/thumbnails/' + package_photo + '"></a><h3 class="name">' + package_name + '</h3><p class="description">' + package_details + '</p><a href="#" class="action"><i class="fa fa-arrow-circle-right" style="color:rgb(55,126,63);"></i></a></div>');
+    console.log(packages_received[x])
+}
+
+        });
+    </script>
+
+</body>
+
+</html>
